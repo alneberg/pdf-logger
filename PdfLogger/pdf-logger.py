@@ -19,7 +19,7 @@ def add_content(args):
 
 if __name__=="__main__":
     parser = ArgumentParser(\
-        description="""usage: pdf-logger [--help] <command> [<args>]""")
+        description=""" The pdf-logger """)
     parser.add_argument('-v', '--verbose', action='store_true',
         help='information written to stderr during execution.')
 
