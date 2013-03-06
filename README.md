@@ -9,6 +9,15 @@ Proposed Syntax
 
     pdf-logger init "Title of log file"
 
+
+###New Section
+
+    pdf-logger section "Section header"
+
+###New Subsection
+
+    pdf-logger subsection "Subsection header"
+
 ###Adding script to logger
 
     pdf-logger add my-script-file [HEADER] [CAPTION] --results my-result-files
