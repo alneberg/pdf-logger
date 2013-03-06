@@ -5,9 +5,6 @@ import fileinput
 import sys
 from argparse import ArgumentParser
 
-def main():
-    pass
-
 def init(args):
     print args.title
 
@@ -16,6 +13,9 @@ def section(args):
 
 def subsection(args):
     print args.header
+
+def add_content(args):
+    print args.script_file
 
 if __name__=="__main__":
     parser = ArgumentParser(\
@@ -36,6 +36,13 @@ if __name__=="__main__":
     parser_subsection = subparsers.add_parser('subsection')
     parser_subsection.add_argument('header', help="The subsection header that will be created")
     parser_subsection.set_defaults(func=subsection)
+
+    parser_add = subparsers.add_parser('add')
+    parser_add.add_argument('script_file', \
+                                help='The script file that will be logged')
+    parser_add.add_argument('-c','--caption',
+                            type=str, help='Specify an optional caption for the code')
+    parser_add.set_defaults(func=add_content)
 
     args = parser.parse_args()
 
