@@ -15,7 +15,6 @@ def main(args, di):
                 args.log_file_name = file_name
                 break
         try:
-            os.path.exists(
             with open(os.path.join(di,args.log_file_name),'r+') as log_file:
                 args.log_file = log_file
                 args.func(args)
@@ -30,10 +29,6 @@ def main(args, di):
 if __name__=="__main__":
     parser = main_parser()
     args = parser.parse_args()
-
-    if args.verbose:
-        print >> sys.stderr, "parameters: %s" %(args)
-
     path=os.getcwd()
-    
+
     main(args,path)
