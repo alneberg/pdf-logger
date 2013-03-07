@@ -7,6 +7,7 @@ import os
 import re
 
 from pdflogger.parser import main_parser
+from pdflogger.core import title_to_file_name
 
 def main(args, di):
     if args.func.__name__ != "init":
