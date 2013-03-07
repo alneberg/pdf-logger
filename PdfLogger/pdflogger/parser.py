@@ -12,6 +12,8 @@ def main_parser():
 
     parser_init = subparsers.add_parser('init')
     parser_init.add_argument('title', help='The title of the log file that will be created')
+    parser_init.add_argument('-a','--author',
+                             help='Specify the author of the log file')
     parser_init.set_defaults(func=init)
 
     parser_section = subparsers.add_parser('section')
