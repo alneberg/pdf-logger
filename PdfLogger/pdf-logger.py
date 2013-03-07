@@ -3,50 +3,35 @@
 """The pdf-logger main script"""
 import fileinput
 import sys
-from argparse import ArgumentParser
+import os
+import re
 
-def init(args):
-    print args.title
+from pdflogger.parser import main_parser
 
-def section(args):
-    print args.header
+def main(args, di):
+    for file_name in os.listdir(di):
+        if re.match(".+_log.tex$",file_name):
+            args.log_file_name = file_name
+            break
+    if args.func.__name__ != "init":
+        try:
+            with open(os.path.join(di,args.log_file_name),'r+') as log_file:
+                args.log_file = log_file
+                args.func(args)
+        except AttributeError:
+            sys.stderr.write('No log file initialized\n')
+            
+    else:
+         args.func(args)
 
-def subsection(args):
-    print args.header
-
-def add_content(args):
-    print args.script_file
 
 if __name__=="__main__":
-    parser = ArgumentParser(\
-        description=""" The pdf-logger """)
-    parser.add_argument('-v', '--verbose', action='store_true',
-        help='information written to stderr during execution.')
-
-    subparsers = parser.add_subparsers()
-
-    parser_init = subparsers.add_parser('init')
-    parser_init.add_argument('title', help='The title of the log file that will be created')
-    parser_init.set_defaults(func=init)
-
-    parser_section = subparsers.add_parser('section')
-    parser_section.add_argument('header', help="The section header that will be created")
-    parser_section.set_defaults(func=section)
-
-    parser_subsection = subparsers.add_parser('subsection')
-    parser_subsection.add_argument('header', help="The subsection header that will be created")
-    parser_subsection.set_defaults(func=subsection)
-
-    parser_add = subparsers.add_parser('add')
-    parser_add.add_argument('script_file', \
-                                help='The script file that will be logged')
-    parser_add.add_argument('-c','--caption',
-                            type=str, help='Specify an optional caption for the code')
-    parser_add.set_defaults(func=add_content)
-
+    parser = main_parser()
     args = parser.parse_args()
 
     if args.verbose:
         print >> sys.stderr, "parameters: %s" %(args)
+
+    path=os.getcwd()
     
-    args.func(args)
+    main(args,path)
