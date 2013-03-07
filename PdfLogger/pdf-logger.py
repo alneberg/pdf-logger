@@ -9,12 +9,13 @@ import re
 from pdflogger.parser import main_parser
 
 def main(args, di):
-    for file_name in os.listdir(di):
-        if re.match(".+_log.tex$",file_name):
-            args.log_file_name = file_name
-            break
     if args.func.__name__ != "init":
+        for file_name in os.listdir(di):
+            if re.match(".+_log.tex$",file_name):
+                args.log_file_name = file_name
+                break
         try:
+            os.path.exists(
             with open(os.path.join(di,args.log_file_name),'r+') as log_file:
                 args.log_file = log_file
                 args.func(args)
