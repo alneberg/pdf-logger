@@ -22,7 +22,8 @@ def main(args, di):
             sys.stderr.write('No log file initialized\n')
             
     else:
-         args.func(args)
+        args.dir = di
+        args.func(args)
 
 
 if __name__=="__main__":
