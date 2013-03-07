@@ -4,7 +4,7 @@ import sys, os
 
 version = '0.1'
 
-setup(name='pdf-latex',
+setup(name='pdf-logger',
       version=version,
       description="Log your experiment scripts and result figures to pdf.",
       long_description="""\
